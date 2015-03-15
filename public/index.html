@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Death Clock!</title>
+  </head>
+  <body>
+    <h1>DEATH CLOCK</h1>
+    <div></div>
+    <form action="age-sex" method="post">
+      <label>I am: 
+        <input type="radio" name="sex" value="male">Male
+        <input type="radio" name="sex" value="female">Female
+      </label>
+      <br>
+      <label>My age is: 
+        <input type="number" name="age" min="0" max="119">
+      </label>
+      <br>
+      <input type="submit">
+    </form>
+    <!-- jQuery  -->
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.3/jquery.min.js"></script>
+    <!-- Client-side application script -->
+    <script src="client.js"></script>
+  </body>
+</html>
