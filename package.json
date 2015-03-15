@@ -1,0 +1,26 @@
+{
+  "name": "death-clock",
+  "version": "1.0.0",
+  "description": "Time until you die",
+  "main": "server.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "node server.js"
+  },
+  "dependencies": {
+    "express": "4.12.x"
+  },
+  "engines": {
+    "node": "0.12.x"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/DymaxionMap/death-clock.git"
+  },
+  "author": "Stephen Liao",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/DymaxionMap/death-clock/issues"
+  },
+  "homepage": "https://github.com/DymaxionMap/death-clock"
+}
