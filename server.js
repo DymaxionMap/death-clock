@@ -2,19 +2,30 @@ var express = require('express');
 var app = express();
 
 app.set('port', (process.env.PORT || 5000));
-
 app.use(express.static(__dirname + '/public'));
 
 var bodyParser = require('body-parser');
 app.use(bodyParser.urlencoded({ extended: true }));
+
+var fs = require('fs');
+var life_table = null;
+var life_expectancy = null;
+
+fs.readFile('life-table.json', function(err, data) {
+  if (err) throw err;
+  life_table = JSON.parse(data);
+  console.log("Read life table.");
+});
 
 app.get('/', function(request, response) {
   response.render('index');
 });
 
 app.post('/', function(request, response) {
-  var info = request.body;
-  console.log("Sex: " + info.sex + ", Age: " + info.age);
+  var user = request.body;
+  console.log("Sex: " + user.sex + ", Age: " + user.age);
+  life_expectancy = life_table[user.sex][user.age];
+  console.log("Life expectancy: " + life_expectancy);
   response.sendStatus(200);
 });
 
