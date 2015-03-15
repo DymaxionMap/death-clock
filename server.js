@@ -9,7 +9,7 @@ app.use(bodyParser.urlencoded({ extended: true }));
 
 var fs = require('fs');
 var life_table = null;
-var life_expectancy = null;
+var response_data = null;
 
 fs.readFile('life-table.json', function(err, data) {
   if (err) throw err;
@@ -24,9 +24,9 @@ app.get('/', function(request, response) {
 app.post('/', function(request, response) {
   var user = request.body;
   console.log("Sex: " + user.sex + ", Age: " + user.age);
-  life_expectancy = life_table[user.sex][user.age];
-  console.log("Life expectancy: " + life_expectancy);
-  response.sendStatus(200);
+  response_data = {life_expectancy: life_table[user.sex][user.age]};
+  console.log("Life expectancy: " + response_data.life_expectancy);
+  response.status(200).send(JSON.stringify(response_data));
 });
 
 app.listen(app.get('port'), function() {
