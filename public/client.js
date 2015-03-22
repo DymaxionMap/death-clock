@@ -13,11 +13,18 @@ $(document).ready(function() {
         console.log("Life expectancy: " + user.life_expectancy);
         var life_expectancy = user.life_expectancy;
         var secondsLeft = life_expectancy * secPerYear;
-        var time = getTimeLeft(secondsLeft);
-        $(".clock").text(clockMessage(time));
+        var time;
+        var intervalId = setInterval(function() {
+          time = getTimeLeft(secondsLeft);
+          $(".clock").text(clockMessage(time));
+          secondsLeft--;
+          if (secondsLeft < 0) {
+            clearInterval(intervalId);
+          }
+        }, 1000);
       })
       .fail(function() {
-        console.log("There was an error...");
+        console.log("There was an error submitting the form...");
       });
   });
 
