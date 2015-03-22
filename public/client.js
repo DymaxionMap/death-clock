@@ -4,6 +4,7 @@ $(document).ready(function() {
   var secPerDay = 86400;
   var secPerHour = 3600;
   var secPerMinute = 60;
+  var intervalId;
 
   $(".user-form").submit(function(event) {
     event.preventDefault();
@@ -14,19 +15,33 @@ $(document).ready(function() {
         var life_expectancy = user.life_expectancy;
         var secondsLeft = life_expectancy * secPerYear;
         var time;
-        var intervalId = setInterval(function() {
-          time = getTimeLeft(secondsLeft);
-          $(".clock").text(clockMessage(time));
-          secondsLeft--;
-          if (secondsLeft < 0) {
-            clearInterval(intervalId);
-          }
-        }, 1000);
+        runClock(secondsLeft);
+        $(".clock").show();
+        $(".reset").show();
+        $(".user-form").hide();
       })
       .fail(function() {
         console.log("There was an error submitting the form...");
       });
   });
+
+  $(".reset").on("click", function() {
+    clearInterval(intervalId);
+    $(".clock").hide();
+    $(".reset").hide();
+    $(".user-form").show();
+  });
+
+  function runClock(secondsLeft) {
+    intervalId = setInterval(function() {
+      time = getTimeLeft(secondsLeft);
+      $(".clock").text(clockMessage(time));
+      secondsLeft--;
+      if (secondsLeft < 0) {
+        clearInterval(intervalId);
+      }
+    }, 1000);
+  }
 
   function numYears(seconds) {
     return Math.floor(seconds / secPerYear);
