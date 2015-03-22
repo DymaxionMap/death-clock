@@ -5,6 +5,12 @@ $(document).ready(function() {
   var secPerHour = 3600;
   var secPerMinute = 60;
   var intervalId;
+  var storedTime = localStorage.getItem('time');
+
+  if (storedTime) {
+    runClock(storedTime);
+    clockView();
+  }
 
   $(".user-form").submit(function(event) {
     event.preventDefault();
@@ -16,9 +22,7 @@ $(document).ready(function() {
         var secondsLeft = life_expectancy * secPerYear;
         var time;
         runClock(secondsLeft);
-        $(".clock").show();
-        $(".reset").show();
-        $(".user-form").hide();
+        clockView();
       })
       .fail(function() {
         console.log("There was an error submitting the form...");
@@ -26,16 +30,28 @@ $(document).ready(function() {
   });
 
   $(".reset").on("click", function() {
+    formView();
     clearInterval(intervalId);
+    localStorage = removeItem("time");
+  });
+
+  function clockView() {
+    $(".clock").show();
+    $(".reset").show();
+    $(".user-form").hide();
+  }
+
+  function formView() {
     $(".clock").hide();
     $(".reset").hide();
     $(".user-form").show();
-  });
+  }
 
   function runClock(secondsLeft) {
     intervalId = setInterval(function() {
       time = getTimeLeft(secondsLeft);
       $(".clock").text(clockMessage(time));
+      localStorage.setItem("time", secondsLeft);
       secondsLeft--;
       if (secondsLeft < 0) {
         clearInterval(intervalId);
