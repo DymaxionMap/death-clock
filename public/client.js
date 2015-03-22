@@ -13,14 +13,8 @@ $(document).ready(function() {
         console.log("Life expectancy: " + user.life_expectancy);
         var life_expectancy = user.life_expectancy;
         var secondsLeft = life_expectancy * secPerYear;
-        var years = numYears(secondsLeft);
-        var days = numDays(secondsLeft);
-        var hours = numHours(secondsLeft);
-        var minutes = numMinutes(secondsLeft);
-        var seconds = numSeconds(secondsLeft);
-        var string = years + " years " + days + " days " + hours + " hours " +
-          minutes + " minutes " + seconds + " seconds left to live."
-        $(".clock").text("You have " + string);
+        var time = getTimeLeft(secondsLeft);
+        $(".clock").text(clockMessage(time));
       })
       .fail(function() {
         console.log("There was an error...");
@@ -46,6 +40,27 @@ $(document).ready(function() {
 
   function numSeconds(seconds) {
     return (((seconds % secPerYear) % secPerDay) % secPerHour) % secPerMinute;
+  }
+
+  function getTimeLeft(seconds) {
+    return {
+      years: numYears(seconds),
+      days: numDays(seconds),
+      hours: numHours(seconds),
+      minutes: numMinutes(seconds),
+      seconds: numSeconds(seconds)
+    }
+  };
+
+  function clockMessage(time) {
+    var msg = "You have ";
+    msg += time.years + " years ";
+    msg += time.days + " days ";
+    msg += time.hours + " hours ";
+    msg += time.minutes + " minutes ";
+    msg += time.seconds + " seconds ";
+    msg += " left to live.";
+    return msg;
   }
 
 });
