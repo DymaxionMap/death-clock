@@ -4,12 +4,12 @@ $(document).ready(function() {
   var secPerDay = 86400;
   var secPerHour = 3600;
   var secPerMinute = 60;
+  var msPerYear = secPerYear * msPerSecond;
   var intervalId;
-  var storedTime = localStorage.getItem('time');
+  var storedTime = localStorage.getItem('deathTime');
 
   if (storedTime) {
-    runClock(storedTime);
-    clockView();
+    resumeClock(storedTime);
   }
 
   $(".user-form").submit(function(event) {
@@ -18,10 +18,9 @@ $(document).ready(function() {
       .done(function(user) {
         user = JSON.parse(user);
         console.log("Life expectancy: " + user.life_expectancy);
-        var life_expectancy = user.life_expectancy;
-        var secondsLeft = life_expectancy * secPerYear;
-        var time;
-        runClock(secondsLeft);
+        var deathTime = getDeathTime(user.life_expectancy * msPerYear);
+        localStorage.setItem('deathTime', deathTime);
+        runClock(secondsLeft(deathTime));
         clockView();
       })
       .fail(function() {
@@ -32,7 +31,7 @@ $(document).ready(function() {
   $(".reset").on("click", function() {
     formView();
     clearInterval(intervalId);
-    localStorage = removeItem("time");
+    localStorage.removeItem("deathTime");
   });
 
   function clockView() {
@@ -49,9 +48,8 @@ $(document).ready(function() {
 
   function runClock(secondsLeft) {
     intervalId = setInterval(function() {
-      time = getTimeLeft(secondsLeft);
+      var time = getTimeLeft(secondsLeft);
       $(".clock").text(clockMessage(time));
-      localStorage.setItem("time", secondsLeft);
       secondsLeft--;
       if (secondsLeft < 0) {
         clearInterval(intervalId);
@@ -88,7 +86,7 @@ $(document).ready(function() {
       minutes: numMinutes(seconds),
       seconds: numSeconds(seconds)
     }
-  };
+  }
 
   function clockMessage(time) {
     var msg = "You have ";
@@ -101,4 +99,19 @@ $(document).ready(function() {
     return msg;
   }
 
+  function getDeathTime(lifeExpectancy) {
+    var now = new Date();
+    return now.getTime() + lifeExpectancy;
+  }
+
+  function resumeClock(storedTime) {
+    runClock(secondsLeft(storedTime));
+    clockView();
+  }
+
+  function secondsLeft(deathTime) {
+    var now = new Date();
+    var msLeft = deathTime - now.getTime();
+    return Math.floor(msLeft / msPerSecond);
+  }
 });
