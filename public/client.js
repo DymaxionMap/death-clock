@@ -46,15 +46,22 @@ $(document).ready(function() {
     $(".user-form").show();
   }
 
-  function runClock(secondsLeft) {
+  function runClock(seconds) {
     intervalId = setInterval(function() {
-      var time = getTimeLeft(secondsLeft);
-      $(".clock").text(clockMessage(time));
-      secondsLeft--;
-      if (secondsLeft < 0) {
+      displayTime(getTimeLeft(seconds));
+      seconds--;
+      if (seconds < 0) {
         clearInterval(intervalId);
       }
     }, 1000);
+  }
+
+  function displayTime(time) {
+    $(".years").text(time.years);
+    $(".days").text(time.days);
+    $(".hours").text(time.hours);
+    $(".minutes").text(time.minutes);
+    $(".seconds").text(time.seconds);
   }
 
   function numYears(seconds) {
@@ -86,17 +93,6 @@ $(document).ready(function() {
       minutes: numMinutes(seconds),
       seconds: numSeconds(seconds)
     }
-  }
-
-  function clockMessage(time) {
-    var msg = "You have ";
-    msg += time.years + " years ";
-    msg += time.days + " days ";
-    msg += time.hours + " hours ";
-    msg += time.minutes + " minutes ";
-    msg += time.seconds + " seconds ";
-    msg += " left to live.";
-    return msg;
   }
 
   function getDeathTime(lifeExpectancy) {
