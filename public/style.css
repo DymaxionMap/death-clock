@@ -1,7 +1,34 @@
+h1 {
+  text-align: center;
+  font-family: Palantino, serif;;
+}
+
+.time {
+  font-family: Courier, monospace;
+  margin-left: auto;
+  margin-right: auto;
+}
+
 .clock {
   display: none;
+  width: 40%;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+.clock h2 {
+  text-align: center;
+  font-family: Palantino, serif;;
 }
 
 .reset {
-  display: none;
+  display: block;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+.user-form {
+  width: 20%;
+  margin-left: auto;
+  margin-right: auto;
 }
