@@ -3,22 +3,21 @@ h1 {
   font-family: Palantino, serif;;
 }
 
-.time {
+.display {
   font-family: Courier, monospace;
+  font-size: 150%;
+}
+
+.clock {
+  display: none;
   margin-left: auto;
   margin-right: auto;
 }
 
 .clock {
-  display: none;
-  width: 40%;
-  margin-left: auto;
-  margin-right: auto;
-}
-
-.clock h2 {
   text-align: center;
   font-family: Palantino, serif;;
+  font-weight: bold;
 }
 
 .reset {

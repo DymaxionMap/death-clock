@@ -57,11 +57,16 @@ $(document).ready(function() {
   }
 
   function displayTime(time) {
-    $(".years").text(time.years);
-    $(".days").text(time.days);
-    $(".hours").text(time.hours);
-    $(".minutes").text(time.minutes);
-    $(".seconds").text(time.seconds);
+    $(".display").text(time.years +
+      " years " +
+      time.days +
+      " days " +
+      time.hours +
+      " hours " +
+      time.minutes +
+      " minutes " +
+      time.seconds +
+      " seconds")
   }
 
   function numYears(seconds) {
