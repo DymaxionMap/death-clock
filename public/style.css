@@ -21,14 +21,12 @@ h1 {
 }
 
 .reset {
-  display: none;
-  margin-left: auto;
-  margin-right: auto;
+  display: block;
+  margin: 0 auto;
 }
 
 .reset-wrapper {
-  margin-left: auto;
-  margin-right: auto;
+  display: none;
 }
 
 .user-form {

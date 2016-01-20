@@ -36,13 +36,13 @@ $(document).ready(function() {
 
   function clockView() {
     $(".clock").show();
-    $(".reset").show();
+    $(".reset-wrapper").show();
     $(".user-form").hide();
   }
 
   function formView() {
     $(".clock").hide();
-    $(".reset").hide();
+    $(".reset-wrapper").hide();
     $(".user-form").show();
   }
 
